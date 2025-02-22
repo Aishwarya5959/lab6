@@ -18,7 +18,7 @@ app.get('/items', (req, res) => {
 });
 app.get('/items/:name', (req, res) => {
     const item = items.find(i => i.name ===  req.params.name);
-    if (!item) return res.status(404).send('Item not found');
+    if (!item) {res.send('Item not found')};
     res.json(item.name);
 });
  
@@ -31,14 +31,16 @@ app.post('/items', (req, res) => {
  
 app.put('/items/:id', (req, res) => {
     const item = items.find(i => i.id === parseInt(req.params.id));
-    if (!item) return res.status(404).send('Item not found');
+    if (!item) {
+        res.send('Item not found');
+    }
     item.name = req.body.name;
     res.json(item);
 });
 app.delete('/items/:id', (req, res) => {
     const index = items.findIndex(i => i.id === parseInt(req.params.id)); 
     if (index === -1) {
-        return res.status(404).send('Item not found');
+         res.send('Item not found');
     }
     items.splice(index, 1);
     res.send('Item deleted');
